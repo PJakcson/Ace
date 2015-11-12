@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$SearchFragment">
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gameGrid"
+        android:numColumns="@integer/number_of_columns"
+        android:stretchMode="columnWidth"/>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/channelGrid"
+        android:layout_below="@id/gameGrid"
+        android:numColumns="1"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_progress"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

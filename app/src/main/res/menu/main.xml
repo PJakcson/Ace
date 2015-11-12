@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_notification"
+        android:icon="@drawable/ic_notifications_white"
+        android:title="notifications"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_delete"
+        android:icon="@drawable/ic_delete_white"
+        android:title="delete"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_clear"
+        android:icon="@drawable/ic_clear_white"
+        android:title="clear"
+        app:showAsAction="ifRoom"/>
+</menu>

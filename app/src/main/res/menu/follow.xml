@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_mute_all"
+        android:icon="@drawable/ic_notifications_off_white"
+        android:title="notifications"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_dropdown"
+        android:icon="@drawable/ic_more_vert_white"
+        android:title="dropdown"
+        app:showAsAction="ifRoom" />
+</menu>

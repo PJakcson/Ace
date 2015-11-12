@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0">
+
+    <android.support.design.widget.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_face_white"
+        android:layout_marginBottom="15dp"
+        fab:backgroundTint="#bfffffff"
+        fab:elevation="6dp"
+        fab:borderWidth="0dp"
+        fab:fabSize="mini"/>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/fab"
+        android:layout_alignBottom="@+id/fab"
+        android:layout_alignTop="@+id/fab"
+        card_view:cardCornerRadius="8dp"
+        android:foreground="?android:attr/selectableItemBackground">
+        <TextView
+            android:id="@+id/liveChannel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Channel 123"
+            android:textColor="@color/primary_text_default_material_light"
+            android:textSize="@dimen/abc_text_size_small_material"/>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

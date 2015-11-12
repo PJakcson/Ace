@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/channelData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/channelBanner"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/channel_banner_desc" />
+
+            <TextView
+                android:id="@+id/textLive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channelBanner"
+                android:layout_alignRight="@+id/channelBanner"
+                android:layout_below="@id/channelBanner"
+                android:background="@color/twitch_main"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text="@string/channel_now_live"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textColor="@color/primary_text_default_material_dark" />
+
+            <TextView
+                android:id="@+id/textTitleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/channelBanner"
+                android:padding="10dp"
+                android:text="Title"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/textPlayingGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textTitleView"
+                android:layout_toRightOf="@id/channelBanner"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Game"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textSize="22sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/followingLayout"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_below="@+id/textPlayingGame"
+                android:layout_alignStart="@id/textPlayingGame"
+                android:gravity="center"
+                android:background="@color/twitch_main">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="22sp"
+                    android:id="@+id/followingImage"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_notfollowing"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/followingText"
+                    android:layout_marginStart="5dp"
+                    android:textSize="22sp"
+                    android:textColor="@color/abc_primary_text_material_dark"
+                    android:text="Follow"/>
+                </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/followingLayoutButton"
+                android:layout_alignStart="@id/followingLayout"
+                android:layout_alignEnd="@id/followingLayout"
+                android:layout_alignTop="@id/followingLayout"
+                android:layout_alignBottom="@id/followingLayout"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/textBioView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textLive"
+                android:layout_marginTop="10dp"
+                android:maxLines="3"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Bio"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textColor="@color/primary_text_default_material_light" />
+
+            <TextView
+                android:id="@+id/textFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textBioView"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Followers"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textColor="@color/primary_text_default_material_light" />
+
+            <TextView
+                android:id="@+id/textUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textFollowers"
+                android:autoLink="web"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Url"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textColor="@color/primary_text_default_material_light" />
+
+            <TextView
+                android:id="@+id/textMature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textUrl"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Mature"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textColor="@color/primary_text_default_material_light" />
+
+            <TextView
+                android:id="@+id/textCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textMature"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Created"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textCreated"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

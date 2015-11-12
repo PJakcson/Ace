@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ace</string>
+    <string name="banner_ad_unit_test_id">ca-app-pub-1959826266269343/5767824915</string>
+    <string name="banner_ad_unit_id">ca-app-pub-1959826266269343/8156861712</string>
+
+    <string name="search_action">Search</string>
+
+    <string name="title_section1">Games</string>
+    <string name="title_section2">Top Channels</string>
+    <string name="title_section3">Search</string>
+    <string name="title_section4">Following</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="channel_banner_desc">Channel Banner</string>
+    <string name="viewer_logo">Viewer Logo</string>
+
+    <string name="game_streams_url">https://api.twitch.tv/kraken/streams?game=</string>
+    <string name="channel_url">https://api.twitch.tv/kraken/channels/</string>
+
+    <string name="twitch_user_url">https://api.twitch.tv/kraken/users/</string>
+    <string name="channel_stream_url">https://api.twitch.tv/kraken/streams/</string>
+    <string name="channel_videos_url">https://api.twitch.tv/kraken/channels/</string>
+    <string name="channel_broadcasts_url_appendix">broadcasts=true&amp;</string>
+    <string name="featured_streams_url">https://api.twitch.tv/kraken/streams/featured?</string>
+
+    <string name="twitch_user_following_suffix">/follows/channels?</string>
+
+    <string name="twich_chat_properties">https://api.twitch.tv/api/channels/</string>
+    <string name="twich_chat_emoticons">https://api.twitch.tv/kraken/chat/</string>
+    <string name="twich_chat_emoticon">http://static-cdn.jtvnw.net/emoticons/v1/</string>
+
+    <string name="twitch_search_channels">https://api.twitch.tv/kraken/search/channels?</string>
+    <string name="twitch_search_streams">https://api.twitch.tv/kraken/search/streams?</string>
+    <string name="twitch_search_games">https://api.twitch.tv/kraken/search/games?</string>
+
+    <string name="twitch_oauth_base_url">https://api.twitch.tv/kraken?oauth_token=</string>
+    <string name="twitch_oauth_get_token_url">https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&amp;client_id=ipstxc61gmz1b7cm74c50wa5no5qls6&amp;redirect_uri=https://acefortwitch&amp;scope=user_follows_edit+chat_login</string>
+    <string name="stream_token_url">https://api.twitch.tv/api/channels/</string>
+    <string name="twitch_video_token_url">https://api.twitch.tv/api/vods/</string>
+    <string name="default_stream_quality_type">auto select best</string>
+    <string name="default_preferred_video_quality">source</string>
+
+    <string name="get_details_message">\n- click to view details</string>
+
+    //-------------------------Settings------------------------------------------
+    <string name="settings_video_headline">Video</string>
+    <string name="settings_video_type_headline">Playback behavior</string>
+    <string name="settings_video_quality_headline">Preferred Video Quality</string>
+
+    <string name="settings_twitch_headline">Twitch</string>
+    <string name="settings_username_headline">Username</string>
+    <string name="settings_fresh_login_headline">Fresh Login</string>
+    <string name="settings_refresh_token_headline">Quick Twitch Login / Refresh Token</string>
+
+    <string name="settings_general_ui_headline">General UI</string>
+    <string name="settings_thumbnail_quality_headline">Thumbnail Quality</string>
+    <string name="settings_twitch_status_headline">Twitch Login Status</string>
+    <string name="settings_default_home">Default Homescreen</string>
+    <string name="channel_now_live">NOW LIVE</string>
+    <string name="title_settings">Settings</string>
+    <string name="join_chat_text">Fullscreen Chat</string>
+    <string name="joined_chatroom">Successfully Joined Chat</string>
+    <string name="user_not_authenticated">Please connect your Twitch Account under Settings</string>
+    <string name="skip_button">Skip</string>
+    <string name="next_button">Next</string>
+    <string name="setup_welcome">Welcome!</string>
+    <string name="setup_welcome_infos">You can now connect your Twitch Account to use the Chat and view your followed Channels</string>
+    <string name="fetching_emoticons">fetching emoticons</string>
+    <string name="connecting_to_chat">connecting to chat</string>
+    <string name="login_successful">login was successful</string>
+    <string name="username_not_set">Please set up a valid Twitch Username</string>
+    <string name="drawer_live_channels_header">Your Live Channels</string>
+    <string name="settings_video_autoplay_headline">Video Autoplay</string>
+
+
+    //-----------------------Array-----------------------------------------------
+    <string-array name="drawer_labels">
+        <item>Games</item>
+        <item>Top Channels</item>
+        <item>Search</item>
+        <item>Following</item>
+    </string-array>
+
+    <string-array name="drawer_urls">
+        <item>https://api.twitch.tv/kraken/games/top?</item>
+        <item>https://api.twitch.tv/kraken/streams?</item>
+        <item>https://api.twitch.tv/kraken/search/channels?q=rotterdam&amp;</item>
+        <item>https://api.twitch.tv/kraken/users/pjakson/follows/channels?</item>
+    </string-array>
+
+    <string-array name="livestream_qualities">
+        <item>source</item>
+        <item>high</item>
+        <item>medium</item>
+        <item>low</item>
+        <item>mobile</item>
+        <item>audio only</item>
+    </string-array>
+
+    <string name="settings_video_mobile_headline">Quality Limit on Mobile Data</string>
+
+    <string name="autoplay_default">don\'t play automatically</string>
+    <string-array name="autoplay_settings">
+        <item>don\'t play automatically</item>
+        <item>start internal player</item>
+        <item>start external player</item>
+        <item>open share dialog</item>
+    </string-array>
+
+    <string name="mobile_limit_default">no limit</string>
+    <string-array name="mobile_limit_settings">
+        <item>no limit</item>
+        <item>source</item>
+        <item>high</item>
+        <item>medium</item>
+        <item>low</item>
+        <item>mobile</item>
+        <item>audio only</item>
+    </string-array>
+
+    <string-array name="settings_stream_quality_type">
+        <item>always ask</item>
+        <item>auto select best</item>
+        <item>set maximum</item>
+    </string-array>
+
+    <string-array name="settings_bitmap_qualities">
+        <item>large</item>
+        <item>medium</item>
+        <item>small</item>
+    </string-array>
+
+    <string name="settings_chat_theme">Chat Theme</string>
+    <string name="settings_chat_theme_default">Light (default)</string>
+    <string name="send_to_intent">Please choose Video Player or Caster App</string>
+    <string name="settings_chat_start">Start Chat when Stream is played</string>
+    <string name="authorize_twitch_account">For Chat please authorize your Twitch Account under Settings.</string>
+    <string name="not_logged_in_warning">For Chat log in with your Twitch Account.</string>
+    <string name="settings_ace_build_headline">Build</string>
+    <string name="settings_ace_version_headline">Version</string>
+    <string name="settings_ace_info_headline">About Ace</string>
+    <string name="settings_chat_size">Chat Textsize</string>
+    <string-array name="settings_chat_themes">
+        <item>Light (default)</item>
+        <item>Dark (aka OLED-mode)</item>
+    </string-array>
+
+</resources>

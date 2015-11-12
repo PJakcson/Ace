@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <group >
+        <item
+            android:id="@+id/navigation_item_1"
+            android:checked="true"
+            android:icon="@drawable/drawer_games"
+            android:title="Games" />
+        <item
+            android:id="@+id/navigation_item_2"
+            android:icon="@drawable/drawer_games"
+            android:title="Games" />
+        <item
+            android:id="@+id/navigation_subheader"
+            android:title="asdasd">
+            <menu>
+                <item
+                    android:id="@+id/navigation_sub_item_3"
+                    android:icon="@drawable/drawer_channel"
+                    android:title="asdfasf" />
+                <item
+                    android:id="@+id/navigation_sub_item_4"
+                    android:icon="@drawable/drawer_favorites"
+                    android:title="asasdfasf" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

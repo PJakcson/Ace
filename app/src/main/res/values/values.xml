@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="game_grid_start_items">60</integer>
+    <integer name="game_grid_update_items">60</integer>
+    <integer name="game_grid_update_threshold">40</integer>
+    <integer name="channel_list_start_items">60</integer>
+    <integer name="channel_list_update_items">20</integer>
+    <integer name="channel_list_update_threshold">15</integer>
+
+    <color name="twitch_main">#673AB7</color>
+    <color name="twitch_main_dark">#6d6e74</color>
+    <color name="twitch_main_pressed">#ff474289</color>
+    <color name="twitch_main_light">#41474289</color>
+    <color name="twitch_following_channel">#00B132</color>
+    <color name="state_checked">#ffa9a9a9</color>
+    <color name="state_activated">#FFD0D0D0</color>
+    <color name="dark_actionbar">#222222</color>
+    <color name="chat_black">#000000</color>
+    <color name="chat_white">#fff7f7f7</color>
+
+    <color name="selected_item">#c6c6c6</color>
+
+    <color name="fab_colorNormal">#ff553297</color>
+    <color name="fab_colorPressed">#ff403380</color>
+    <color name="fab_colorRipple">#ff755dde</color>
+
+    <string-array name="chat_colors">
+        <item>#FF0000</item>
+        <item>#0000FF</item>
+        <item>#008000</item>
+        <item>#B22222</item>
+        <item>#FF7F50</item>
+        <item>#9ACD32</item>
+        <item>#FF0000</item>
+        <item>#2E8B57</item>
+        <item>#DAA520</item>
+        <item>#D2691E</item>
+        <item>#5F9EA0</item>
+        <item>#1E90FF</item>
+        <item>#FF69B4</item>
+        <item>#8A2BE2</item>
+        <item>#00FF7F</item>
+    </string-array>
+</resources>

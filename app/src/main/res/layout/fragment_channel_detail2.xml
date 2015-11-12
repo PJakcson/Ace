@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$ChannelDetailFragment">
+
+    <RelativeLayout
+        android:id="@+id/stream_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:background="#cb000000"
+        android:elevation="8dp"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/videoFeed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_placeholder" />
+
+        <ImageView
+            android:id="@+id/imageOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_grey_overlay" />
+
+        <TextView
+            android:id="@+id/channelTitel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageOverlay"
+            android:paddingLeft="5dp"
+            android:textColor="#ffededed"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/channelTitel"
+            android:paddingLeft="5dp"
+            android:textColor="#ffededed" />
+
+        <TextView
+            android:id="@+id/streamStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/videoFeed"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#ffededed" />
+
+        <TextView
+            android:id="@+id/channelViewers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageOverlay"
+            android:layout_marginTop="7dp"
+            android:paddingRight="5dp"
+            android:shadowColor="#000"
+            android:shadowRadius="7.0"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffededed"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/viewers_icon"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:layout_alignBottom="@+id/channelViewers"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@+id/channelViewers"
+            android:paddingBottom="4dp"
+            android:src="@drawable/ic_active_viewers"
+            android:visibility="invisible" />
+
+        <VideoView
+            android:id="@+id/videoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageOverlay2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/qualitySetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:padding="15dp"
+            android:textSize="@dimen/abc_text_size_large_material"
+            android:textColor="#c8ffffff"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="720p"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/videoProgressBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stream_layout_top"
+        android:visibility="invisible"/>
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:padding="5dip"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:background="#00000000"
+        app:radius="6dp"
+        app:fillColor="@color/twitch_main"
+        app:strokeColor="#FF000000"
+        app:strokeWidth="1px"
+        android:visibility="invisible"
+        />
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/stream_layout_top"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="-28dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_play_arrow"
+        android:visibility="gone"
+        fab:fab_colorNormal="#4CAF50"
+        fab:fab_colorPressed="#FF4E9C4E"
+        fab:fab_colorRipple="#4CAF50" />
+
+    <ProgressBar
+        android:id="@+id/channel_detail_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"/>
+
+</RelativeLayout>
+

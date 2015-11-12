@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="?android:attr/activatedBackgroundIndicator">
+
+    <ImageView
+        android:id="@+id/drawerIcon"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:layout_width="?android:attr/listPreferredItemHeightSmall"
+        android:padding="10dp"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@drawable/drawer_text_color"
+        android:gravity="center_vertical"
+        android:layout_toEndOf="@id/drawerIcon"
+        android:lines="1"
+        android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+
+    <TextView
+        android:id="@+id/drawerFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@drawable/drawer_text_color"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingStart="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/drawerProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_alignParentStart="true"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_completed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:text="Twitch Setup"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:id="@+id/imageTwitchLogoFinished"
+        android:layout_below="@id/text_completed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_setup_logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/finishedText"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/imageTwitchLogoFinished"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:gravity="center_horizontal"
+        android:text="Congratulations! \n Ace is now ready"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/finishedTipps"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/finishedText"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:gravity="center|bottom"
+        android:text="If your Twitch Credentials have changed, you can always edit them in settings."
+        android:paddingBottom="10dp"/>
+
+</RelativeLayout>

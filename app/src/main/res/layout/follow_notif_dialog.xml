@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="25dp">
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notifSwitcherText"
+        android:layout_marginBottom="35dp"
+        android:text="Enable Notifications"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_alignParentTop="true" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/silentSwitcherText"
+        android:layout_below="@+id/notifSwitcherText"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="Silent hours" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/silentSwitcherText">
+        <TableRow
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent">
+            <TextView
+                android:text="From"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:id="@+id/fromTime"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_weight="0"
+                android:layout_gravity="right"/>
+        </TableRow>
+        <TableRow
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <TextView
+                android:text="Until"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/untilTime"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_weight="0" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
