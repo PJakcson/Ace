@@ -136,17 +136,6 @@ public class StreamListFragment extends Fragment{
                     AceAnims.showActionbar(getActivity());
                 }
 
-                if (totalItemCount > 0 && totalItemCount >= visibleItemCount) {
-                    if (lastVisibleItem >= totalItemCount - 1 && !adIsOnTop) {
-                        ((MainActivity) getActivity()).pushDownAd();
-                        adIsOnTop = true;
-                    }
-                    if (lastVisibleItem < totalItemCount - 1 && adIsOnTop) {
-                        ((MainActivity) getActivity()).pushUpAd();
-                        adIsOnTop = false;
-                    }
-                }
-
                 if (lastVisibleItem >= mLoadedItems - INT_LIST_UPDATE_THRESHOLD) {
                     downloadStreamData(INT_LIST_UPDATE_VALUE, mLoadedItems);
                     mLoadedItems += INT_LIST_UPDATE_VALUE;
@@ -226,7 +215,6 @@ public class StreamListFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity)getActivity()).resetAdPosition();
     }
 
     @Override

@@ -493,20 +493,17 @@ public class ChannelFragment extends Fragment {
             if (hasTabletLayout())
                 setPlayerSize();
 
-            if (getActivity() != null)
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         } else {
             mFullScreen = false;
             mPlayerFragment.setFullScreen(false);
             if (!hasTabletLayout()) {
-                if (getActivity() != null)
-                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (getActivity() != null)
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                     }
                 }, 1000);
             }

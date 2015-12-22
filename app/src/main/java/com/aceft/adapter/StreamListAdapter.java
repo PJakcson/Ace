@@ -81,7 +81,8 @@ public class StreamListAdapter extends RecyclerView.Adapter<StreamListAdapter.Vi
 
         @Override
         public void onClick(View view) {
-            mItemClickListener.onItemClick(getPosition()-1);
+            if (mItemClickListener != null)
+                mItemClickListener.onItemClick(getPosition() - 1);
         }
     }
 

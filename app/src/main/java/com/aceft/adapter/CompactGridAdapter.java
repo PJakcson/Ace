@@ -1,9 +1,7 @@
 package com.aceft.adapter;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +12,10 @@ import android.widget.TextView;
 
 import com.aceft.R;
 import com.aceft.data.CircleTransform;
-import com.aceft.data.LayoutTasks;
 import com.aceft.data.TwitchJSONParser;
 import com.aceft.data.primitives.Channel;
 import com.aceft.data.primitives.TwitchUser;
 import com.aceft.data.primitives.TwitchVideo;
-import com.sorcix.sirc.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

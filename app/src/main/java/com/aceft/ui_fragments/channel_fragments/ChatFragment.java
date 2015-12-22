@@ -240,7 +240,7 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
         mChatBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEND) {
+                if (i == EditorInfo.IME_ACTION_SEND || keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     String message = String.valueOf(mChatBox.getText());
                     mClient2.sendMessage(message);
                     mChatBox.setText("");
@@ -353,11 +353,6 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
     public void onResume() {
         super.onResume();
 
-        try {
-            ((MainActivity) getActivity()).setAdPosition(RelativeLayout.ALIGN_PARENT_TOP);
-        } catch (ClassCastException ignored) {
-        }
-
         if (!getArguments().getBoolean("mini")) {
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             if (actionBar != null)
@@ -399,11 +394,6 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
     public void onPause() {
         if (!getArguments().getBoolean("mini"))
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        try {
-            ((MainActivity) getActivity()).setAdPosition(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        } catch (ClassCastException ignored) {
-        }
         super.onPause();
     }
 

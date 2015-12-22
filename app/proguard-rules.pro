@@ -21,4 +21,6 @@
 # see https://code.google.com/p/android/issues/detail?id=78377
 -keep class !android.support.v7.internal.view.menu.**,android.support.v7.** {*;}
 -keep class com.** { *; }
+-dontwarn com.viewpagerindicator.**
 -dontwarn com.squareup.picasso.**
+-dontwarn javax.xml.stream.events.**

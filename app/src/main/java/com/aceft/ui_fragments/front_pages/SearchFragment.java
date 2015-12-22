@@ -205,7 +205,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).pauseAd();
         AceAnims.showActionbar(getActivity(), false);
     }
 

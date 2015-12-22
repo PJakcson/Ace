@@ -133,17 +133,6 @@ public class FollowedListFragment extends Fragment implements ChannelGridAdapter
                     mABHidden = false;
                     AceAnims.showActionbar(getActivity());
                 }
-
-                if (totalItemCount > 0 && totalItemCount >= visibleItemCount) {
-                    if (lastVisibleItem >= totalItemCount - 1 && !adIsOnTop) {
-                        ((MainActivity) getActivity()).pushDownAd();
-                        adIsOnTop = true;
-                    }
-                    if (lastVisibleItem < totalItemCount - 1 && adIsOnTop) {
-                        ((MainActivity) getActivity()).pushUpAd();
-                        adIsOnTop = false;
-                    }
-                }
             }
         });
 
@@ -197,7 +186,6 @@ public class FollowedListFragment extends Fragment implements ChannelGridAdapter
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity) getActivity()).resetAdPosition();
         ((MainActivity) getActivity()).getToolbar().getMenu().clear();
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)

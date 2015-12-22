@@ -100,16 +100,6 @@ public class ChannelVodCategoryFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastVisibleItem = firstVisibleItem + visibleItemCount;
-                if (totalItemCount > 0 && totalItemCount >= visibleItemCount) {
-                    if (lastVisibleItem >= totalItemCount-1 && !adIsOnTop) {
-                        ((MainActivity)getActivity()).pushDownAd();
-                        adIsOnTop = true;
-                    }
-                    if (lastVisibleItem < totalItemCount-1 && adIsOnTop) {
-                        ((MainActivity)getActivity()).pushUpAd();
-                        adIsOnTop = false;
-                    }
-                }
                 if (lastVisibleItem >= mLoadedItems - INT_GRID_UPDATE_THRESHOLD) {
                     if (videoType == 0) {
                         downloadHighlightData(INT_GRID_UPDATE_VALUE,mLoadedItems);
@@ -255,7 +245,6 @@ public class ChannelVodCategoryFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity)getActivity()).resetAdPosition();
     }
 
     @Override

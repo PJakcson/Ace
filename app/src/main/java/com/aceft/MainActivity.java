@@ -1,6 +1,5 @@
 package com.aceft;
 
-import android.animation.ObjectAnimator;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -18,10 +17,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.aceft.data.Preferences;
@@ -44,13 +39,8 @@ import com.aceft.ui_fragments.front_pages.StreamListFragment;
 import com.aceft.ui_fragments.setup.SetupPagerFragment;
 import com.gms.QuickstartPreferences;
 import com.gms.RegistrationIntentService;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
@@ -63,9 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String ARG_ACTIONBAR_TITLE = "action_bar";
     private String mUrls[];
-    private AdView mAdView;
     private String mUsername;
-    private InterstitialAd interstitial;
     private boolean proVersion;
     private SharedPreferences mPreferences;
     private Toolbar mToolbar;
@@ -130,13 +118,11 @@ public class MainActivity extends AppCompatActivity
 
 
     private void checkLicence() {
-        final PackageManager pacman = getPackageManager();
-        final int signatureMatch = pacman.checkSignatures(getPackageName(), "com.acefortwitchkey");
+        final PackageManager pac_man = getPackageManager();
+        final int signatureMatch = pac_man.checkSignatures(getPackageName(), "com.acefortwitchkey");
 
         if (signatureMatch == PackageManager.SIGNATURE_MATCH) {
             proVersion = true;
-            mAdView = null;
-            interstitial = null;
             if (!mPreferences.getBoolean(Preferences.HAS_SEEN_PRO_MESSAGE, false)) {
                 mPreferences.edit().putBoolean(Preferences.HAS_SEEN_PRO_MESSAGE, true).apply();
                 mPreferences.edit().putBoolean(Preferences.IS_PRO_USER, true).apply();
@@ -146,12 +132,6 @@ public class MainActivity extends AppCompatActivity
             proVersion = false;
             mPreferences.edit().putBoolean(Preferences.HAS_SEEN_PRO_MESSAGE, false).apply();
             mPreferences.edit().putBoolean(Preferences.IS_PRO_USER, false).apply();
-            mAdView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice("E5E629B10D8B4A0F1BFB41DFA591AED8").build();
-
-            if (Math.random() < 0.5)
-                mAdView.loadAd(adRequest);
         }
     }
 
@@ -160,7 +140,6 @@ public class MainActivity extends AppCompatActivity
         final int signatureMatch = pacman.checkSignatures(getPackageName(), "com.acefortwitchkey");
         return signatureMatch == PackageManager.SIGNATURE_MATCH;
     }
-
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -321,9 +300,6 @@ public class MainActivity extends AppCompatActivity
         }else if (itemCount > 1) {
             fm.popBackStack();
         } else {
-//            if (interstitial != null && !proVersion && interstitial.isLoaded()) {
-//                interstitial.show();
-//            }
             super.onBackPressed();
         }
     }
@@ -417,63 +393,6 @@ public class MainActivity extends AppCompatActivity
                 .getDefaultSharedPreferences(this);
         int home = sp.getInt(Preferences.APP_DEFAULT_HOME, 0);
         mNavigationDrawerFragment.selectItem(home);
-    }
-
-    public void pauseAd() {
-        if (mAdView == null || proVersion) return;
-        mAdView.setVisibility(View.GONE);
-    }
-
-    public void resumeAd() {
-        if (mAdView == null || proVersion) return;
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    public void setUpAd() {
-        if (proVersion) return;
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("E5E629B10D8B4A0F1BFB41DFA591AED8").build();
-        interstitial.loadAd(adRequest);
-    }
-
-    public void resetAdPosition() {
-        if (mAdView == null || proVersion) return;
-        if (mAdView.getMeasuredHeight() < 0) return;
-        ObjectAnimator fadeInStream = ObjectAnimator.ofFloat(mAdView, "translationY", mAdView.getMeasuredHeight(), 0f);
-        fadeInStream.setDuration(0);
-        fadeInStream.start();
-    }
-
-    public void pushUpAd() {
-        if (mAdView == null || proVersion) return;
-        if (mAdView.getMeasuredHeight() < 0) return;
-        ObjectAnimator fadeInStream = ObjectAnimator.ofFloat(mAdView, "translationY", mAdView.getMeasuredHeight(), 0f);
-        fadeInStream.setDuration(300);
-        fadeInStream.start();
-    }
-
-    public void pushDownAd() {
-        if (mAdView == null || proVersion) return;
-        if (mAdView.getMeasuredHeight() < 0) return;
-        ObjectAnimator fadeInStream = ObjectAnimator.ofFloat(mAdView, "translationY", 0f, mAdView.getMeasuredHeight());
-        fadeInStream.setDuration(300);
-        fadeInStream.start();
-    }
-
-    public void setAdPosition(int pos) {
-        if (mAdView == null || proVersion) return;
-        if (mAdView.getLayoutParams() == null) return;
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mAdView.getLayoutParams();
-        if (pos == RelativeLayout.ALIGN_PARENT_TOP) {
-            params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-
-        }
-        if (pos == RelativeLayout.ALIGN_PARENT_BOTTOM) {
-            params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        }
-        mAdView.setLayoutParams(params);
     }
 
     public void disableDrawer() {

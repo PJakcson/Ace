@@ -188,15 +188,7 @@ public class VideoPlayerFragment extends Fragment implements SurfaceHolder.Callb
             player.prepare();
             playerNeedsPrepare = false;
         }
-
-        if (player == null)
-            return;
-
-        if (mPlayerSurface == null && mRootView != null)
-            mPlayerSurface = (VideoSurfaceView) mRootView.findViewById(R.id.playerSurface);
-        if (player != null && mPlayerSurface != null)
-            player.setSurface(mPlayerSurface.getHolder().getSurface());
-
+        player.setSurface(mPlayerSurface.getHolder().getSurface());
         if (!mFallbackMode)
             player.setPlayWhenReady(true);
     }

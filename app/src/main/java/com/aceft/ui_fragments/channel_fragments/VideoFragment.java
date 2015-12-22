@@ -102,30 +102,6 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        videos.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int lastVisibleItem = firstVisibleItem + visibleItemCount;
-                if (totalItemCount > 1 && totalItemCount >= visibleItemCount) {
-                    if (lastVisibleItem >= totalItemCount-1 && !adIsOnTop) {
-                        if (getActivity() instanceof MainActivity)
-                            ((MainActivity)getActivity()).pushDownAd();
-                        adIsOnTop = true;
-                    }
-                    if (lastVisibleItem < totalItemCount-1 && adIsOnTop) {
-                        if (getActivity() instanceof MainActivity)
-                            ((MainActivity)getActivity()).pushUpAd();
-                        adIsOnTop = false;
-                    }
-                }
-            }
-        });
-
         return rootView;
     }
 
@@ -199,8 +175,6 @@ public class VideoFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (getActivity() instanceof MainActivity)
-            ((MainActivity)getActivity()).resetAdPosition();
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
             actionBar.show();

@@ -652,14 +652,12 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((MainActivity)getActivity()).pauseAd();
         AceAnims.showActionbar(getActivity(), false);
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        ((MainActivity)getActivity()).resumeAd();
     }
 
     private void updateTextFields() {

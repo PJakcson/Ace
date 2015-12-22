@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +20,6 @@ import com.aceft.ui_fragments.channel_fragments.VideoFragment;
 import com.aceft.ui_fragments.channel_fragments.video.VideoPlayerFragment;
 import com.aceft.ui_fragments.front_pages.NavigationDrawerFragment;
 import com.aceft.ui_fragments.setup.AuthFragment;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
@@ -48,29 +44,6 @@ public class PlayerActivity extends AppCompatActivity
         transaction.replace(R.id.container, mChannelFragment.newInstance(channel), "channel");
         transaction.addToBackStack("channel");
         transaction.commit();
-
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Preferences.IS_PRO_USER, false))
-            showAd();
-    }
-
-    private void showAd() {
-        final InterstitialAd interstitial = new InterstitialAd(this);
-        interstitial.setAdUnitId(getString(R.string.banner_ad_unit_test_id));
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("E5E629B10D8B4A0F1BFB41DFA591AED8").build();
-        interstitial.loadAd(adRequest);
-
-        interstitial.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                if (Math.random() < 0.1)
-                    interstitial.show();
-            }
-            @Override
-            public void onAdClosed ()
-            {
-            }
-        });
     }
 
     @Override

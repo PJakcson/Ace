@@ -356,7 +356,6 @@ public class SetupPagerFragment extends Fragment{
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).pauseAd();
         ((MainActivity)getActivity()).disableDrawer();
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)

@@ -10,7 +10,7 @@ public class FloatingButtonSmall extends FloatingActionButton{
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int preferredSize = (int)this.getResources().getDimension(android.support.design.R.dimen.fab_content_size);
+        int preferredSize = (int)this.getResources().getDimension(android.support.design.R.dimen.design_fab_content_size);
         int w = resolveAdjustedSize(preferredSize, widthMeasureSpec);
         int h = resolveAdjustedSize(preferredSize, heightMeasureSpec);
         int d = Math.min(w, h);

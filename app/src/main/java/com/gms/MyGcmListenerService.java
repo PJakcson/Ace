@@ -155,6 +155,6 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(randomNum, notificationBuilder.build());
+        notificationManager.notify(randomNum, notificationBuilder.getNotification());
     }
 }

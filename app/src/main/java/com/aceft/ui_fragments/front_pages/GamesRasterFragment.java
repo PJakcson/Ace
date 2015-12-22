@@ -117,17 +117,6 @@ public class GamesRasterFragment extends Fragment
                     AceAnims.showActionbar(getActivity());
                 }
 
-                if (totalItemCount > 0 && totalItemCount >= visibleItemCount) {
-                    if (lastVisibleItem >= totalItemCount - 1 && !adIsOnTop) {
-                        ((MainActivity) getActivity()).pushDownAd();
-                        adIsOnTop = true;
-                    }
-                    if (lastVisibleItem < totalItemCount - 1 && adIsOnTop) {
-                        ((MainActivity) getActivity()).pushUpAd();
-                        adIsOnTop = false;
-                    }
-                }
-
                 if (lastVisibleItem >= mLoadedItems - INT_GRID_UPDATE_THRESHOLD) {
                     loadGameData(INT_GRID_UPDATE_VALUE, mLoadedItems);
                     mLoadedItems += INT_GRID_UPDATE_VALUE;
@@ -175,7 +164,6 @@ public class GamesRasterFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).resumeAd();
         if (mGames != null) {
             mLoadedItems = mGames.size();
             mAdapter.cleanData();
@@ -192,7 +180,6 @@ public class GamesRasterFragment extends Fragment
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity)getActivity()).resetAdPosition();
     }
 
     @Override
