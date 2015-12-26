@@ -26,6 +26,7 @@ import com.aceft.data.primitives.Game;
 import com.aceft.data.primitives.Stream;
 import com.aceft.data.primitives.TwitchVideo;
 import com.aceft.data.primitives.TwitchVod;
+import com.aceft.ui_fragments.channel_fragments.ChannelFragment;
 import com.aceft.ui_fragments.channel_fragments.ChatFragment;
 import com.aceft.ui_fragments.channel_fragments.VideoFragment;
 import com.aceft.ui_fragments.channel_fragments.channel_pager.ChannelPagerFragment;
@@ -115,7 +116,6 @@ public class MainActivity extends AppCompatActivity
             startService(intent);
         }
     }
-
 
     private void checkLicence() {
         final PackageManager pac_man = getPackageManager();

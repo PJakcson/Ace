@@ -101,6 +101,7 @@ public class ChannelFragment extends Fragment {
 
     private ArrayList<Channel> mChannels = new ArrayList<>();
     private boolean mFabIsExpanded;
+    private ChatFragment mChatFragment;
 
     public ChannelFragment newInstance(String c) {
         ChannelFragment fragment = new ChannelFragment();
@@ -146,7 +147,7 @@ public class ChannelFragment extends Fragment {
         childFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayerFragment, "playerFragment").commit();
 
         ChannelCompactFragment mCompactFragment = new ChannelCompactFragment().newInstance(mChannelName);
-        ChatFragment mChatFragment = new ChatFragment().newInstance(mChannelName, mChannelName, false);
+        mChatFragment = new ChatFragment().newInstance(mChannelName, mChannelName, false);
 
         mFragments = new ArrayList<>();
         mFragments.add(mCompactFragment);
@@ -1048,5 +1049,16 @@ public class ChannelFragment extends Fragment {
 
     public boolean getFABExpanded() {
         return mFabIsExpanded;
+    }
+
+    public boolean getEmotisShown() {
+        if (mChatFragment != null)
+            return mChatFragment.getEmotisShown();
+        return false;
+    }
+
+    public void hideEmotis() {
+        if (mChatFragment != null)
+            mChatFragment.hideEmotis();
     }
 }

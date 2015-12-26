@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -21,18 +22,20 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aceft.MainActivity;
 import com.aceft.R;
+import com.aceft.adapter.EmotisAdapter;
 import com.aceft.adapter.IRCAdapter;
 import com.aceft.data.AceAnims;
 import com.aceft.data.Preferences;
 import com.aceft.data.TwitchChatClient;
+import com.aceft.data.TwitchJSONParser;
 import com.aceft.data.TwitchNetworkTasks;
+import com.aceft.data.primitives.Emoticon;
 import com.aceft.data.primitives.IRCMessage;
 
 import org.json.JSONArray;
@@ -40,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicked {
     private View mRootView;
@@ -57,6 +61,10 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
     private boolean mChatStarted;
     private int scrolling = 0;
     private LinearLayoutManager mLayoutManager;
+    private EmotisAdapter mEmotisAdapter;
+    private ArrayList<Emoticon> mEmotis;
+    private RecyclerView emotesView;
+    boolean EmotesIsShown;
 
     public ChatFragment newInstance(String c, String d) {
         ChatFragment fragment = new ChatFragment();
@@ -146,12 +154,23 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
         });
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            private static final int MAX_CLICK_DURATION = 200;
+            private long startClickTime;
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-            //TODO automatically hide keyboard setting
-//                InputMethodManager imm = (InputMethodManager) view.getContext()
-//                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-//                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        startClickTime = Calendar.getInstance().getTimeInMillis();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                        if(clickDuration < MAX_CLICK_DURATION && EmotesIsShown) {
+                            AceAnims.hideEmotesList(getActivity(), emotesView);
+                            EmotesIsShown = false;                        }
+                    }
+                }
+
                 if (mChatBox != null)
                     mChatBox.setCursorVisible(false);
                 return false;
@@ -169,6 +188,28 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
                 }
             }
         });
+
+        emotesView = (RecyclerView) mRootView.findViewById(R.id.emotesList);
+        AceAnims.hideEmotesList(getActivity(), emotesView);
+        emotesView.setLayoutManager(new GridLayoutManager(getActivity(), 7));
+        mEmotisAdapter = new EmotisAdapter();
+        emotesView.setAdapter(mEmotisAdapter);
+
+        Button b = (Button) mRootView.findViewById(R.id.emoteButton);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!EmotesIsShown) {
+                    AceAnims.showEmotesList(getActivity(), emotesView);
+                    EmotesIsShown = true;
+                }
+                else {
+                    AceAnims.hideEmotesList(getActivity(), emotesView);
+                    EmotesIsShown = false;
+                }
+            }
+        });
+
 
         return mRootView;
     }
@@ -273,6 +314,16 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
         return mChatStarted;
     }
 
+    public boolean getEmotisShown() {
+        return EmotesIsShown;
+    }
+
+    public void hideEmotis() {
+        if (EmotesIsShown) {
+            AceAnims.hideEmotesList(getActivity(), emotesView);
+            EmotesIsShown = false;
+        }
+    }
 
     private class DownloadBadgeTask extends AsyncTask<String, Void, Bitmap> {
         protected Bitmap doInBackground(String... urls) {
@@ -296,6 +347,17 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
         }
         protected void onPostExecute(Bitmap result) {
             subBitmapReceived(result);
+        }
+    }
+
+    private class DownloadAllEmotisTask extends AsyncTask<Void, Void, ArrayList<Emoticon>> {
+        protected ArrayList<Emoticon> doInBackground(Void... urls) {
+            String data = TwitchNetworkTasks.downloadStringData(getActivity().getString(R.string.twich_all_chat_emoticons));
+            return TwitchJSONParser.emotesJSONtoArrayList(data);
+        }
+        protected void onPostExecute(ArrayList<Emoticon> result) {
+            if (mEmotisAdapter != null)
+                mEmotisAdapter.update(result);
         }
     }
 
@@ -345,11 +407,6 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
 
@@ -388,6 +445,9 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
             mClient.joinChannel(this, mChatRoom);
             mClient2.joinChannel(this, mChatRoom);
         }
+
+        if (mEmotis == null)
+            new DownloadAllEmotisTask().execute();
     }
 
     @Override

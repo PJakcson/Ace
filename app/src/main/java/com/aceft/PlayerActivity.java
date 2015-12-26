@@ -73,6 +73,10 @@ public class PlayerActivity extends AppCompatActivity
             cf.hideExpanded();
             return;
         }
+        if (cf != null && cf.getEmotisShown()) {
+            cf.hideEmotis();
+            return;
+        }
 
         if(!isTaskRoot())
             super.onBackPressed();

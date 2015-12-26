@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 import com.aceft.data.primitives.Channel;
+import com.aceft.data.primitives.Emoticon;
 import com.aceft.data.primitives.Game;
 import com.aceft.data.primitives.Stream;
 import com.aceft.data.primitives.TwitchUser;
@@ -477,6 +479,33 @@ public final class TwitchJSONParser {
             e.printStackTrace();
             return null;
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static ArrayList<Emoticon> emotesJSONtoArrayList(String r) {
+        ArrayList<Emoticon> emotes = new ArrayList<>();
+        JSONObject jEmote;
+        String code, id;
+
+        try {
+            JSONObject jObject = new JSONObject(r);
+            JSONArray jArray = jObject.getJSONArray("emoticons");
+
+            for (int i=0; i<jArray.length(); i++) {
+                try {
+                    jEmote = jArray.getJSONObject(i);
+                    if (jEmote == null) continue;
+                    id = jEmote.getString("id");
+                    code = jEmote.getString("code");
+                    emotes.add(new Emoticon(id, 0, null, code));
+                } catch (JSONException ignored) {
+                }
+            }
+        } catch (JSONException | NullPointerException e) {
+            Log.v("topGamesJSONtoArrayList", "Nothing to parse. String is empty");
+            e.printStackTrace();
+        }
+        return emotes;
     }
 
     public static String[] tokenSigToStringArray(JSONObject j) {

@@ -34,6 +34,7 @@
     <string name="twich_chat_properties">https://api.twitch.tv/api/channels/</string>
     <string name="twich_chat_emoticons">https://api.twitch.tv/kraken/chat/</string>
     <string name="twich_chat_emoticon">http://static-cdn.jtvnw.net/emoticons/v1/</string>
+    <string name="twich_all_chat_emoticons">https://api.twitch.tv/kraken/chat/emoticon_images</string>
 
     <string name="twitch_search_channels">https://api.twitch.tv/kraken/search/channels?</string>
     <string name="twitch_search_streams">https://api.twitch.tv/kraken/search/streams?</string>

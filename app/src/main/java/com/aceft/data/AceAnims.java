@@ -7,6 +7,8 @@ import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.graphics.Point;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 
@@ -35,6 +37,35 @@ public class AceAnims {
         ObjectAnimator fOut = ObjectAnimator.ofFloat(ab, "translationY", 0, -ab.getHeight());
         int dur = anim ? 250 : 0;
         fOut.setDuration(dur);
+        fOut.setInterpolator(new android.view.animation.Interpolator() {
+            @Override
+            public float getInterpolation(float v) {
+                return v * v;
+            }
+        });
+        fOut.start();
+    }
+
+    public static void showEmotesList(final Activity a, View v) {
+        if (a == null) return;
+        int dpInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, a.getResources().getDisplayMetrics());
+        ObjectAnimator fOut = ObjectAnimator.ofFloat(v, "translationY", dpInPx, 0);
+        fOut.setDuration(400);
+        fOut.setInterpolator(new android.view.animation.Interpolator() {
+            @Override
+            public float getInterpolation(float v) {
+                return v * v;
+            }
+        });
+        fOut.start();
+    }
+
+
+    public static void hideEmotesList(final Activity a, View v) {
+        if (a == null) return;
+        int dpInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, a.getResources().getDisplayMetrics());
+        ObjectAnimator fOut = ObjectAnimator.ofFloat(v, "translationY", 0, dpInPx);
+        fOut.setDuration(400);
         fOut.setInterpolator(new android.view.animation.Interpolator() {
             @Override
             public float getInterpolation(float v) {
