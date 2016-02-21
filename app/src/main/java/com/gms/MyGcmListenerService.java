@@ -32,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.aceft.MainActivity;
 import com.aceft.PlayerActivity;
 import com.aceft.R;
 import com.aceft.data.CircleTransform;
@@ -41,7 +40,6 @@ import com.aceft.data.Preferences;
 import com.aceft.data.TwitchNetworkTasks;
 import com.google.android.gms.gcm.GcmListenerService;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -145,7 +143,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setLargeIcon(b)
-                .setSmallIcon(R.drawable.ic_stat_new_icon)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(channel)
                 .setContentText(message)
                 .setAutoCancel(true)

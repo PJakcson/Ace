@@ -22,15 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceft.MainActivity;
-import com.aceft.data.LayoutTasks;
-import com.squareup.picasso.Picasso;
 import com.aceft.R;
+import com.aceft.data.LayoutTasks;
 import com.aceft.data.Preferences;
 import com.aceft.data.TwitchJSONParser;
 import com.aceft.data.TwitchNetworkTasks;
 import com.aceft.data.async_tasks.TwitchJSONDataThread;
 import com.aceft.data.primitives.Channel;
 import com.aceft.data.primitives.TwitchUser;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,7 +134,7 @@ public class ChannelVideoOverviewFragment extends Fragment {
                                 onlineDataReceived(false);
                             else
                                 onlineDataReceived(true);
-                        } catch (JSONException e) {
+                        } catch (JSONException | NullPointerException e) {
                             onlineDataReceived(false);
                         }
                     }

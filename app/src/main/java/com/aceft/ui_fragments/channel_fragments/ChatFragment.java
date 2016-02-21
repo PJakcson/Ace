@@ -1,6 +1,5 @@
 package com.aceft.ui_fragments.channel_fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,8 +21,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -195,7 +194,7 @@ public class ChatFragment extends Fragment implements IRCAdapter.OnMessageClicke
         mEmotisAdapter = new EmotisAdapter();
         emotesView.setAdapter(mEmotisAdapter);
 
-        Button b = (Button) mRootView.findViewById(R.id.emoteButton);
+        ImageView b = (ImageView) mRootView.findViewById(R.id.emoteButton);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -14,18 +13,13 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.text.style.StyleSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.aceft.MainActivity;
 import com.aceft.R;
 import com.aceft.custom_layouts.EmoteTarget;
 import com.aceft.data.primitives.Emoticon;
@@ -233,75 +227,6 @@ public class IRCAdapter extends RecyclerView.Adapter<IRCAdapter.ViewHolder> impl
         notifyItemInserted(mIRCMessages.size() - 1);
         if (mAutoScroll)
             recyclerView.scrollToPosition(mIRCMessages.size() - 1);
-    }
-
-    private void parseAndShowThreaded(final IRCMessage ircMessage) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String sender = ircMessage.getDisplayName();
-                Spanned message = new SpannableString("");
-
-                SpannableString spanS = new SpannableString(sender);
-                spanS.setSpan(new StyleSpan(Typeface.BOLD),0 ,sender.length(), 0);
-                spanS.setSpan(new ForegroundColorSpan(ircMessage.getColor()), 0 ,sender.length(), 0);
-
-                SpannableString spanM = new SpannableString(ircMessage.getMessageText());
-                ImageSpan span;
-                int regexLength;
-                Bitmap bE;
-                for (Emoticon e : ircMessage.getEmotes()) {
-                    regexLength = e.getRegexLength();
-                    for (int i : e.getStartIndices()) {
-                        bE = e.getEmoti();
-                        float scale = 1.0f * bE.getWidth() / bE.getHeight();
-                        bE = Bitmap.createScaledBitmap(bE,(int) (EMOTI_SCALE * textSizeInPx * scale) , (int) (EMOTI_SCALE * textSizeInPx), true);
-                        span = new ImageSpan(mContext, bE, ImageSpan.ALIGN_BOTTOM);
-                        spanM.setSpan(span, i, i+regexLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                }
-
-                if (ircMessage.getSubscriber() == 1) {
-                    SpannableString spanSub = new SpannableString(" ");
-                    span = new ImageSpan(mContext, subBadge, ImageSpan.ALIGN_BOTTOM);
-                    spanSub.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    message = (Spanned) TextUtils.concat(spanSub, message, " ");
-                }
-
-                if (ircMessage.getTurbo() == 1) {
-                    SpannableString spanTurbo = new SpannableString(" ");
-                    Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.chat_turbo);
-                    b = Bitmap.createScaledBitmap(b, (int) (textSizeInPx * BADGE_SCALE),  (int) (textSizeInPx * BADGE_SCALE), false);
-                    span = new ImageSpan(mContext, b, ImageSpan.ALIGN_BOTTOM);
-                    spanTurbo.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    message = (Spanned) TextUtils.concat(message, spanTurbo, " ");
-                }
-
-                if (ircMessage.getUserType().equals("mod")) {
-                    SpannableString spanMod = new SpannableString(" ");
-                    Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.chat_mod);
-                    b = Bitmap.createScaledBitmap(b, (int) (textSizeInPx * BADGE_SCALE),  (int) (textSizeInPx * BADGE_SCALE), false);
-                    span = new ImageSpan(mContext, b, ImageSpan.ALIGN_BOTTOM);
-                    spanMod.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    message = (Spanned) TextUtils.concat(spanMod, " ", message);
-                }
-
-                message = (Spanned) TextUtils.concat(message, spanS, ": ", spanM);
-
-                final IRCMessage fMessage = new IRCMessage(ircMessage, message);
-//                ircMessage.setFormattedText(message);
-
-                ((Activity)mContext).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mIRCMessages.add(fMessage);
-                        notifyItemInserted(mIRCMessages.size() - 1);
-                        if (mAutoScroll)
-                            recyclerView.scrollToPosition(mIRCMessages.size() - 1);
-                    }
-                });
-            }
-        }).start();
     }
 
     public ArrayList<IRCMessage> getMessages() {

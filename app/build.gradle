@@ -8,8 +8,8 @@ android {
         applicationId "com.aceft"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 59
-        versionName "2.6.0"
+        versionCode 62
+        versionName "2.6.2"
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -29,7 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

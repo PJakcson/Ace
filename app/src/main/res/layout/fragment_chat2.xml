@@ -5,20 +5,24 @@
     android:paddingEnd="10dp"
     android:fitsSystemWindows="true">
 
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/emoteButton"
-        android:layout_margin="10dp"
+        android:src="@drawable/ic_mood_black_24dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/chatBox"
-        android:layout_margin="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/emoteButton"
         android:inputType="text"
@@ -60,7 +64,8 @@
         android:layout_height="10dp"
         android:id="@+id/emotesView"
         android:layout_alignParentBottom="true"
-        android:background="@color/chat_black" />
+        android:background="@color/chat_black"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -69,7 +74,8 @@
         android:layout_alignParentBottom="true"
         android:focusable="true"
         android:background="@color/cardview_dark_background"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:layout_width="wrap_content"

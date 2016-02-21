@@ -1,6 +1,4 @@
 package com.aceft.data;
-
-import android.animation.AnimatorSet;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.aceft.R;
-import com.aceft.ui_fragments.channel_fragments.ChannelFragment;
 
 import java.util.LinkedHashMap;
 
