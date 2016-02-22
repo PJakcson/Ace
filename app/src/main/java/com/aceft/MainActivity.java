@@ -227,9 +227,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case -1:
                 setDefaultSettings();
-                transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new SetupPagerFragment(), "setup");
-                transaction.commit();
+//                transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container, new SetupPagerFragment(), "setup");
+//                transaction.commit();
                 break;
         }
     }
@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity
     private void setDefaultSettings() {
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(this);
+        sp.edit().putBoolean(Preferences.PREF_USER_COMPLETED_SETUP, true).apply();
         sp.edit().putInt(Preferences.APP_DEFAULT_HOME, 0);
         sp.edit().putString(Preferences.TWITCH_STREAM_QUALITY_TYPE, getString(R.string.default_stream_quality_type)).apply();
         sp.edit().putString(Preferences.TWITCH_PREFERRED_VIDEO_QUALITY, getString(R.string.default_preferred_video_quality)).apply();

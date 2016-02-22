@@ -217,6 +217,10 @@ public class NavigationDrawerFragment extends Fragment {
         if (getActivity() == null) return;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserHasCompletedSetup = sp.getBoolean(Preferences.PREF_USER_COMPLETED_SETUP, false);
+        if (!mUserHasCompletedSetup) {
+            setDefaultSettings();
+            mUserHasCompletedSetup = true;
+        }
 
         if (position == 4) return;
         mCurrentSelectedPosition = position;
@@ -360,4 +364,14 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setDefaultSettings() {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        sp.edit().putInt(Preferences.APP_DEFAULT_HOME, 0);
+        sp.edit().putString(Preferences.TWITCH_STREAM_QUALITY_TYPE, getString(R.string.default_stream_quality_type)).apply();
+        sp.edit().putString(Preferences.TWITCH_PREFERRED_VIDEO_QUALITY, getString(R.string.default_preferred_video_quality)).apply();
+        sp.edit().putString(Preferences.TWITCH_AUTOPLAY_MODE, getResources().getStringArray(R.array.autoplay_settings)[0]).apply();
+        String defaultBitmap = getResources().getStringArray(R.array.settings_bitmap_qualities)[0];
+        sp.edit().putString(Preferences.TWITCH_BITMAP_QUALITY, defaultBitmap).apply();
+    }
 }

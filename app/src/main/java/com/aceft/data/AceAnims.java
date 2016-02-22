@@ -59,8 +59,7 @@ public class AceAnims {
         });
         fOut.start();
     }
-
-
+    
     public static void hideEmotesList(final Activity a, View v) {
         if (a == null) return;
         int dpInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, a.getResources().getDisplayMetrics());
