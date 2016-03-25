@@ -125,10 +125,10 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
         String picUrl = mGames.get(pos).mThumbnail.isEmpty() ?
                 "null" : mGames.get(pos).mThumbnail;
 
-        Picasso.with(mContext)
-                .load(picUrl)
-                .config(Bitmap.Config.RGB_565)
-                .into(holder.thumbImage);
+//        Picasso.with(mContext)
+//                .load(picUrl)
+//                .config(Bitmap.Config.RGB_565)
+//                .into(holder.thumbImage);
 
         holder.title.setText(mGames.get(pos).mTitle);
         holder.viewers.setText(LayoutTasks.formatNumber(Integer.toString(mGames.get(pos).mViewers)));

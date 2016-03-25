@@ -66,7 +66,6 @@ public class IRCAdapter extends RecyclerView.Adapter<IRCAdapter.ViewHolder> impl
 
     public void update(IRCMessage ircMessage) {
         if (ircMessage == null) return;
-
         if (ircMessage.getColor() == -1) {
             if (mUserColors.containsKey(ircMessage.getDisplayName()))
                 ircMessage.setColor(mUserColors.get(ircMessage.getDisplayName()));

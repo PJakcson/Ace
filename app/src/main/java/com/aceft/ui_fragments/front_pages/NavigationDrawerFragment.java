@@ -218,8 +218,10 @@ public class NavigationDrawerFragment extends Fragment {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserHasCompletedSetup = sp.getBoolean(Preferences.PREF_USER_COMPLETED_SETUP, false);
         if (!mUserHasCompletedSetup) {
-            setDefaultSettings();
+//            setDefaultSettings();
             mUserHasCompletedSetup = true;
+            mCallbacks.onNavigationDrawerItemSelected(-1);
+            return;
         }
 
         if (position == 4) return;

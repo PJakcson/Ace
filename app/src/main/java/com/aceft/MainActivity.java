@@ -227,9 +227,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case -1:
                 setDefaultSettings();
-//                transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container, new SetupPagerFragment(), "setup");
-//                transaction.commit();
+                transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, new SetupPagerFragment(), "setup");
+                transaction.commit();
                 break;
         }
     }

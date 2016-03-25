@@ -53,21 +53,48 @@ final class IrcParser {
 	 * @param line The input line.
 	 */
 	protected void parseCommand(final IrcConnection irc, final IrcPacket line) {
-
         if (line.getCommand().contains("color")) {
             String arguments[] = line.getCommand().split(";");
 
-            int color = -1;
-            if (arguments[0].substring(arguments[0].indexOf("=")+1).length() > 1)
-                color = Color.parseColor(arguments[0].substring(arguments[0].indexOf("=")+1));
+			int color = -1;
+			String displayName = "", emotes = "", room_id = "", user_id = "", user_type = "";
+			int subscriber = 0, turbo = 0, mod = 0;
 
-            String displayName = arguments[1].substring(arguments[1].indexOf("=")+1);
-            String emotes = arguments[2].substring(arguments[2].indexOf("=")+1);
-//            int subscriber = Integer.parseInt(arguments[3].substring(arguments[3].indexOf("=")+1));
-			int subscriber = parseInt(arguments[3], arguments[3].indexOf("=") + 1);
-//            int turbo = Integer.parseInt(arguments[4].substring(arguments[4].indexOf("=")+1));
-			int turbo = parseInt(arguments[4], arguments[4].indexOf("=")+1);
-            String userType = arguments[5].substring(arguments[5].indexOf("=")+1);
+			for (String s : arguments) {
+				if (s.contains("color=")) {
+					s = s.substring(6);
+					if (!s.isEmpty())
+						color = Color.parseColor(s);
+				} else if (s.contains("display-name=")) {
+					displayName = s.substring(13);
+				} else if (s.contains("emotes=")) {
+					emotes = s.substring(7);
+				} else if (s.contains("mod=")) {
+					mod = Integer.parseInt(s.substring(4));
+				} else if (s.contains("room-id=")) {
+					room_id = s.substring(8);
+				} else if (s.contains("subscriber=")) {
+					subscriber = Integer.parseInt(s.substring(11));
+				} else if (s.contains("turbo=")) {
+					turbo = Integer.parseInt(s.substring(6));
+				} else if (s.contains("user-id=")) {
+					user_id = s.substring(8);
+				} else if (s.contains("user-type=")) {
+					user_type = s.substring(10);
+				}
+			}
+
+//            int color = -1;
+//            if (arguments[0].substring(arguments[0].indexOf("=")+1).length() > 1)
+//                color = Color.parseColor(arguments[0].substring(arguments[0].indexOf("=")+1));
+
+//            String displayName = arguments[1].substring(arguments[1].indexOf("=")+1);
+//            String emotes = arguments[2].substring(arguments[2].indexOf("=")+1);
+////            int subscriber = Integer.parseInt(arguments[3].substring(arguments[3].indexOf("=")+1));
+//			int subscriber = parseInt(arguments[3], arguments[3].indexOf("=") + 1);
+////            int turbo = Integer.parseInt(arguments[4].substring(arguments[4].indexOf("=")+1));
+//			int turbo = parseInt(arguments[4], arguments[4].indexOf("=")+1);
+//            String userType = arguments[5].substring(arguments[5].indexOf("=")+1);
 
             int firstIndexMessage = line.getMessage().indexOf(":") + 1;
             String message = line.getMessage().substring(firstIndexMessage, line.getMessage().length());
@@ -116,7 +143,7 @@ final class IrcParser {
 
             final Channel chan = irc.getState().getChannel(line.getArguments());
             for (final Iterator<MessageListener> it = irc.getMessageListeners(); it.hasNext();) {
-                it.next().onRichMessage(irc, chan, new IRCMessage(color, displayName, subscriber, turbo, listEmotes, userType, message));
+                it.next().onRichMessage(irc, chan, new IRCMessage(color, displayName, subscriber, turbo, listEmotes, user_type, message));
             }
 
             int asdfas = 1;
