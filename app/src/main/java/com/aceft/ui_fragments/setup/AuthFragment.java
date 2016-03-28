@@ -67,7 +67,7 @@ public class AuthFragment extends Fragment {
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
+                handler.cancel();
             }
 
             @Override

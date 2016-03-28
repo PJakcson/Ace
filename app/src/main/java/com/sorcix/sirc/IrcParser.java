@@ -84,18 +84,6 @@ final class IrcParser {
 				}
 			}
 
-//            int color = -1;
-//            if (arguments[0].substring(arguments[0].indexOf("=")+1).length() > 1)
-//                color = Color.parseColor(arguments[0].substring(arguments[0].indexOf("=")+1));
-
-//            String displayName = arguments[1].substring(arguments[1].indexOf("=")+1);
-//            String emotes = arguments[2].substring(arguments[2].indexOf("=")+1);
-////            int subscriber = Integer.parseInt(arguments[3].substring(arguments[3].indexOf("=")+1));
-//			int subscriber = parseInt(arguments[3], arguments[3].indexOf("=") + 1);
-////            int turbo = Integer.parseInt(arguments[4].substring(arguments[4].indexOf("=")+1));
-//			int turbo = parseInt(arguments[4], arguments[4].indexOf("=")+1);
-//            String userType = arguments[5].substring(arguments[5].indexOf("=")+1);
-
             int firstIndexMessage = line.getMessage().indexOf(":") + 1;
             String message = line.getMessage().substring(firstIndexMessage, line.getMessage().length());
 

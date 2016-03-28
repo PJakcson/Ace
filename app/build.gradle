@@ -1,15 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 android {
+    signingConfigs {
+        config {
+            keyAlias 'ace for twitch'
+            keyPassword 'Jackson313'
+            storeFile file('/Users/marcneumann/Documents/BSync/Apps/Keys/Keystore.aceft.jks')
+            storePassword 'Jackson313'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
-
     defaultConfig {
         applicationId "com.aceft"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 62
-        versionName "2.6.2"
+        versionCode 66
+        versionName "2.7.1"
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'

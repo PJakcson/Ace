@@ -1,13 +1,16 @@
 package com.aceft.data;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Objects;
@@ -355,25 +358,46 @@ public final class TwitchJSONParser {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    @SuppressLint("SimpleDateFormat")
     public static String secondsInHMS(String s) {
-        int sec = (int) Double.parseDouble(s);
-        String hms = "";
-        String sSec,sMin;
-        int hour = (int) ((1.0 * sec / 3600));
-        if (hour > 0) hms += hour + ":";
-        int min = (int) ((1.0 * sec / 60) % 60);
-        if (min < 10)
-            sMin = "0"+min;
-        else
-            sMin = "" + min;
-        hms += sMin + ":";
-        sec = sec % 60;
-        if (sec < 10)
-            sSec = "0"+sec;
-        else
-            sSec = "" + sec;
+        if (s == null || s.isEmpty()) return "";
+        try {
+            int seconds = (int) Double.parseDouble(s);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.add(Calendar.SECOND, seconds);
 
-        return hms+sSec;
+            SimpleDateFormat format;
+            if (seconds >= 3600) {
+                format = new SimpleDateFormat("HH:mm:ss");
+            } else {
+                format = new SimpleDateFormat("mm:ss");
+            }
+            return format.format(c.getTime());
+        } catch (Exception ignored) {
+            return "";
+        }
+
+//        int sec = (int) Double.parseDouble(s);
+//        String hms = "";
+//        String sSec,sMin;
+//        int hour = (int) ((1.0 * sec / 3600));
+//        if (hour > 0) hms += hour + ":";
+//        int min = (int) ((1.0 * sec / 60) % 60);
+//        if (min < 10)
+//            sMin = "0"+min;
+//        else
+//            sMin = "" + min;
+//        hms += sMin + ":";
+//        sec = sec % 60;
+//        if (sec < 10)
+//            sSec = "0"+sec;
+//        else
+//            sSec = "" + sec;
+//
+//        return hms+sSec;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
