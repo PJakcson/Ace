@@ -15,8 +15,8 @@ android {
         applicationId "com.aceft"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 67
-        versionName "2.7.2"
+        versionCode 68
+        versionName "2.7.3"
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
