@@ -18,6 +18,8 @@ import com.aceft.ui_fragments.channel_fragments.ChatFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -34,6 +36,10 @@ import javax.net.ssl.HttpsURLConnection;
 public final class TwitchNetworkTasks {
     public static int NEW_VOD = 0;
     public static int OLD_VOD = 1;
+
+    private static final String BASE_URL_NAME = "http://thegamesdb.net/api/GetGame.php?exactname=";
+    private static final String BASE_URL_ID = "http://thegamesdb.net/api/GetGame.php?id=";
+    private static final String BASE_URL_GAMES = "http://thegamesdb.net/api/GetGamesList.php?name=";
 
     private TwitchNetworkTasks() {
     }
@@ -434,6 +440,31 @@ public final class TwitchNetworkTasks {
         for (String ch : channels) {
             req = base + username + "/follows/channels/" + ch + "?oauth_token=" + token;
             String result = unFollowChannel(req);
+        }
+    }
+
+    public static String downloadAndFetchThumb(String title) {
+        try {
+            Document d = Jsoup.connect(BASE_URL_NAME + title).get();
+            String thumb = TwitchJSONParser.getGamesDBThumbnail(d);
+            if (thumb != null) {
+                return thumb;
+            } else {
+                return alternateBackupCall(title);
+            }
+        } catch (IOException | NullPointerException e) {
+            return null;
+        }
+    }
+
+    private static String alternateBackupCall(String title) {
+        try {
+            Document d = Jsoup.connect(BASE_URL_GAMES + title).get();
+            String id = TwitchJSONParser.getGamesDBId(d);
+            d = Jsoup.connect(BASE_URL_ID + id).get();
+            return TwitchJSONParser.getGamesDBThumbnail(d);
+        } catch (IOException | NullPointerException e) {
+            return null;
         }
     }
 }

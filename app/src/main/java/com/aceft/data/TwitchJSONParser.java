@@ -1,11 +1,13 @@
 package com.aceft.data;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.nodes.Document;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public final class TwitchJSONParser {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static ArrayList<Game> topGamesJSONtoArrayList(String r) {
+    public static ArrayList<Game> topGamesJSONtoArrayList(String r, HashMap<String, String> mapping) {
         String title, thumb = "", id;
         int viewers, channelc;
         JSONObject game;
@@ -63,11 +65,7 @@ public final class TwitchJSONParser {
                 title = game.getString("name");
                 id = game.getString("_id");
 
-                try {
-                    thumb = game.getJSONObject("box").getString(BITMAP_QUALITY);
-                } catch (JSONException e) {
-                    Log.d("TwitchParser", "game.getJSONObject(\"box\") == null");
-                }
+                thumb = mapping.get(id);
 
                 Game temp = new Game(title,thumb,viewers,channelc,id,null);
                 games.add(temp);
@@ -530,6 +528,26 @@ public final class TwitchJSONParser {
             e.printStackTrace();
         }
         return emotes;
+    }
+
+    @Nullable
+    public static String getGamesDBThumbnail(Document d) {
+        try {
+            String rel = d.getElementsByTag("Game").first().getElementsByTag("boxart").first().attr("thumb");
+            String base = d.getElementsByTag("baseImgUrl").first().text();
+            return base + rel;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static String getGamesDBId(Document d) {
+        try {
+            return d.getElementsByTag("Game").first().getElementsByTag("id").first().text();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public static String[] tokenSigToStringArray(JSONObject j) {

@@ -3,7 +3,9 @@ package com.aceft.ui_fragments.front_pages;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,16 +15,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.aceft.MainActivity;
 import com.aceft.R;
 import com.aceft.adapter.GamesAdapter;
 import com.aceft.custom_layouts.FullscreenGridLayoutManager;
 import com.aceft.data.AceAnims;
+import com.aceft.data.Storage;
 import com.aceft.data.TwitchJSONParser;
+import com.aceft.data.TwitchNetworkTasks;
 import com.aceft.data.async_tasks.TwitchJSONDataThread;
 import com.aceft.data.primitives.Game;
+import com.google.gson.Gson;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GamesRasterFragment extends Fragment
 {
@@ -34,11 +48,15 @@ public class GamesRasterFragment extends Fragment
     private ProgressBar mProgressBar;
 
     private boolean mABHidden;
+    private Context mAppContext;
 
-    private boolean adIsOnTop = false;
     private RecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
     private GamesAdapter mAdapter;
+
+    private HashMap<String, String> mMapping;
+
+    private static final String FILENAME = "mapping_file";
 
     public GamesRasterFragment newInstance(String url) {
         GamesRasterFragment fragment = new GamesRasterFragment();
@@ -56,9 +74,11 @@ public class GamesRasterFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_games2, container, false);
+        mAppContext = getActivity().getApplicationContext();
 //        mGridView = (GridView) rootView.findViewById(R.id.gridView);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.games_grid_progress);
         mBaseUrl = getArguments().getString("url");
+        mMapping = Storage.getMappingFromFile(getActivity(), FILENAME);
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
@@ -137,7 +157,7 @@ public class GamesRasterFragment extends Fragment
     }
 
     public void dataReceived(String s) {
-        dataParsed(TwitchJSONParser.topGamesJSONtoArrayList(s));
+        dataParsed(TwitchJSONParser.topGamesJSONtoArrayList(s, mMapping));
     }
 
     public void dataParsed(ArrayList<Game> l) {
@@ -153,6 +173,34 @@ public class GamesRasterFragment extends Fragment
         }
 
         mAdapter.update(l);
+        getGamesDBIds(l);
+    }
+
+    private void getGamesDBIds(final ArrayList<Game> l) {
+        if (getActivity() == null) return;
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0; i < l.size(); i++) {
+                    final Game g = l.get(i);
+                    if (mMapping.containsKey(g.mId)) continue;
+                    String thumb = TwitchNetworkTasks.downloadAndFetchThumb(g.mTitle);
+                    if (thumb != null && getActivity() != null) {
+                        mMapping.put(g.mId, thumb);
+                        g.mThumbnail = thumb;
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.update(g);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        thread.setPriority(Thread.MIN_PRIORITY);
+        thread.start();
     }
 
     @Override
@@ -179,6 +227,7 @@ public class GamesRasterFragment extends Fragment
 
     @Override
     public void onPause() {
+        Storage.saveMappingOnDisk(mAppContext, mMapping, FILENAME);
         super.onPause();
     }
 

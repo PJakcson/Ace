@@ -5,7 +5,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class Game {
+    private static final int ART_TYPE_BOX = 0;
+    private static final int ART_TYPE_BOX_LOW = 1;
+    private static final int ART_TYPE_FAN = 2;
+
     public String mTitle, mThumbnail, mId;
+    public String mThumbnailLow, mFanart;
     public int mViewers, mChannelCount;
     public ArrayList<Stream> mStreams;
 
@@ -52,5 +57,13 @@ public class Game {
             }
         }
         return s;
+    }
+
+    public String getGameArt(int type) {
+        switch (type) {
+            case ART_TYPE_BOX_LOW: return mThumbnailLow;
+            case ART_TYPE_FAN: return mFanart;
+            default: return mThumbnail;
+        }
     }
 }

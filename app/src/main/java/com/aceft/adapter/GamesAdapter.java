@@ -30,6 +30,8 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     private int mHeight = -1;
     private final int ITEM_VIEW_TYPE_HEADER = 0;
     private final int ITEM_VIEW_TYPE_ITEM = 1;
+
+    private int mArtType = 0;
     OnItemClickListener mItemClickListener;
 
 
@@ -66,6 +68,14 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
         mGames.clear();
     }
 
+    public void update(Game g) {
+        int index = mGames.indexOf(g);
+        if (index > -1) {
+            mGames.set(index, g);
+            notifyDataSetChanged();
+        }
+    }
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -78,6 +88,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
         public ImageView thumbImage;
         public TextView title;
         public TextView viewers;
+        public Game item;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -120,15 +131,17 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (isHeader(position)) return;
-
         int pos = position - 1;
-        String picUrl = mGames.get(pos).mThumbnail.isEmpty() ?
-                "null" : mGames.get(pos).mThumbnail;
+        holder.item = mGames.get(pos);
 
-//        Picasso.with(mContext)
-//                .load(picUrl)
-//                .config(Bitmap.Config.RGB_565)
-//                .into(holder.thumbImage);
+        if (holder.item.getGameArt(mArtType) != null) {
+            Picasso.with(mContext)
+                    .load(holder.item.mThumbnail)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(holder.thumbImage);
+        } else {
+            holder.thumbImage.setImageDrawable(null);
+        }
 
         holder.title.setText(mGames.get(pos).mTitle);
         holder.viewers.setText(LayoutTasks.formatNumber(Integer.toString(mGames.get(pos).mViewers)));
