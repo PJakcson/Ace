@@ -15,7 +15,7 @@ android {
         applicationId "com.aceft"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 69
+        versionCode 70
         versionName "2.7.5"
     }
     packagingOptions {
