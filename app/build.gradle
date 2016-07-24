@@ -13,10 +13,10 @@ android {
     buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.aceft"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 24
-        versionCode 70
-        versionName "2.7.5"
+        versionCode 71
+        versionName "2.7.6"
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
