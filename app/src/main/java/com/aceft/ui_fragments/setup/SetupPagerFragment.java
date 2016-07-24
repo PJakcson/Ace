@@ -1,6 +1,7 @@
 package com.aceft.ui_fragments.setup;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -43,7 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class SetupPagerFragment extends Fragment{
+public class SetupPagerFragment extends Fragment {
     private int current = 0;
     private NonSwipeViewPager mPager;
     private RadioGroup loginType;
@@ -76,11 +77,11 @@ public class SetupPagerFragment extends Fragment{
         View usernameLogin = inflater.inflate(R.layout.setup_username_login, null);
         mFinished = inflater.inflate(R.layout.setup_finished, null);
 
-        loginType = (RadioGroup)chooseLogin.findViewById(R.id.radioLoginMethod);
+        loginType = (RadioGroup) chooseLogin.findViewById(R.id.radioLoginMethod);
         loginType.getCheckedRadioButtonId();
 
         mIndicator = (ImageView) rootView.findViewById(R.id.borderIndicator);
-        mIndicator.getLayoutParams().width = getWindowWidth()/4;
+        mIndicator.getLayoutParams().width = getWindowWidth() / 4;
 
         mEditUsername = (EditText) usernameLogin.findViewById(R.id.editText);
         mEditUsername.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -89,7 +90,7 @@ public class SetupPagerFragment extends Fragment{
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     String user_url = getActivity().getResources().getString(R.string.twitch_user_url) + mEditUsername.getText();
                     new DownloadJSONTask(1).execute(user_url);
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEditUsername.getWindowToken(), 0);
                     return true;
@@ -134,18 +135,23 @@ public class SetupPagerFragment extends Fragment{
 
     private void nextStep() {
         switch (current) {
-            case 0: makeSteps(1); break;
+            case 0:
+                makeSteps(1);
+                break;
             case 1:
                 if (loginType.getCheckedRadioButtonId() == R.id.radioTwitchLogin) {
                     makeSteps(1);
                     loadTwitchAuthenication();
-                }
-                else {
+                } else {
                     makeSteps(2);
                 }
                 break;
-            case 2: makeSteps(2); break;
-            default: makeSteps(1); break;
+            case 2:
+                makeSteps(2);
+                break;
+            default:
+                makeSteps(1);
+                break;
         }
     }
 
@@ -153,15 +159,15 @@ public class SetupPagerFragment extends Fragment{
         mNextButton.setVisibility(View.VISIBLE);
         mSkipButton.setVisibility(View.VISIBLE);
 
-        if (current+steps == 4){
+        if (current + steps == 4) {
             mNextButton.setText("Finish");
             mSkipButton.setVisibility(View.INVISIBLE);
         }
-        if (current+steps == 2){
+        if (current + steps == 2) {
             mNextButton.setVisibility(View.GONE);
         }
 
-        ObjectAnimator progress = ObjectAnimator.ofFloat(mIndicator, "translationX", current *(getWindowWidth() /4), (current+1)*(getWindowWidth() /4));
+        ObjectAnimator progress = ObjectAnimator.ofFloat(mIndicator, "translationX", current * (getWindowWidth() / 4), (current + 1) * (getWindowWidth() / 4));
         progress.start();
         current += steps;
         mPager.setCurrentItem(current);
@@ -169,15 +175,23 @@ public class SetupPagerFragment extends Fragment{
 
     private void skipStep() {
         switch (current) {
-            case 0: exitSetup(); break;
-            case 1: makeSteps(3); break;
-            case 2: makeSteps(2); break;
-            default: makeSteps(1);break;
+            case 0:
+                exitSetup();
+                break;
+            case 1:
+                makeSteps(3);
+                break;
+            case 2:
+                makeSteps(2);
+                break;
+            default:
+                makeSteps(1);
+                break;
         }
     }
 
     private void exitSetup() {
-        ((MainActivity)getActivity()).exitSetup(this);
+        ((MainActivity) getActivity()).exitSetup(this);
     }
 
 
@@ -189,7 +203,7 @@ public class SetupPagerFragment extends Fragment{
         sp.edit().putString(Preferences.TWITCH_DISPLAY_USERNAME, userDisplayName).apply();
         sp.edit().putInt(Preferences.USERNAME_WARNING, 0).apply();
         sp.edit().putInt(Preferences.AUTH_WARNING, 0).apply();
-        ((TextView)mFinished.findViewById(R.id.finishedText)).setText("Congratulations " + userDisplayName +"! \n Ace is now ready");
+        ((TextView) mFinished.findViewById(R.id.finishedText)).setText("Congratulations " + userDisplayName + "! \n Ace is now ready");
         nextStep();
     }
 
@@ -215,7 +229,7 @@ public class SetupPagerFragment extends Fragment{
         } catch (JSONException | NullPointerException e) {
 
             if (!mEditUsername.getText().toString().isEmpty()) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(mEditUsername, InputMethodManager.SHOW_IMPLICIT);
                 mEditUsername.setError("Username not found");
@@ -224,6 +238,7 @@ public class SetupPagerFragment extends Fragment{
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void loadTwitchAuthenication() {
         final WebView w = (WebView) mTwitchLogin.findViewById(R.id.webView);
         final ProgressBar p = (ProgressBar) mTwitchLogin.findViewById(R.id.twitchProgress);
@@ -231,12 +246,12 @@ public class SetupPagerFragment extends Fragment{
         final String oauth_base = getActivity().getResources().getString(R.string.twitch_oauth_base_url);
 
         CookieManager cm = CookieManager.getInstance();
-        if(android.os.Build.VERSION.SDK_INT >= 21){
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
             cm.removeAllCookies(null);
-        }else{
+        } else {
             cm.removeAllCookie();
         }
-//        w.getSettings().setJavaScriptEnabled(true);
+        w.getSettings().setJavaScriptEnabled(true);
 
         w.setWebViewClient(new WebViewClient() {
             public int mNumberOfAttempts = 0;
@@ -256,9 +271,9 @@ public class SetupPagerFragment extends Fragment{
                 if (url.contains("access_token=")) {
                     w.setVisibility(View.GONE);
 
-                    int index_token = url.indexOf("=")+1;
+                    int index_token = url.indexOf("=") + 1;
                     int index_middle = url.lastIndexOf("&");
-                    int index_scope = url.lastIndexOf("=")+1;
+                    int index_scope = url.lastIndexOf("=") + 1;
                     String token = url.substring(index_token, index_middle);
                     String scopes = url.substring(index_scope, url.length());
                     SharedPreferences sp = PreferenceManager
@@ -299,7 +314,7 @@ public class SetupPagerFragment extends Fragment{
     private class SimplePagerAdapter extends PagerAdapter {
         private ArrayList<View> views = new ArrayList<>();
 
-        public SimplePagerAdapter(ArrayList<View> v){
+        public SimplePagerAdapter(ArrayList<View> v) {
             views = v;
         }
 
@@ -309,8 +324,7 @@ public class SetupPagerFragment extends Fragment{
         }
 
         @Override
-        public Object instantiateItem (ViewGroup container, int position)
-        {
+        public Object instantiateItem(ViewGroup container, int position) {
             View v = views.get(position);
             container.addView(v);
             return v;
@@ -322,15 +336,13 @@ public class SetupPagerFragment extends Fragment{
         // ViewPager itself.  Since all our pages are persistent, we do nothing to the
         // contents of our "views" ArrayList.
         @Override
-        public void destroyItem (ViewGroup container, int position, Object object)
-        {
+        public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(views.get(position));
         }
 
 
         @Override
-        public int getItemPosition (Object object)
-        {
+        public int getItemPosition(Object object) {
             int index = views.indexOf(object);
             if (index == -1)
                 return POSITION_NONE;
@@ -356,7 +368,7 @@ public class SetupPagerFragment extends Fragment{
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).disableDrawer();
+        ((MainActivity) getActivity()).disableDrawer();
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
             actionBar.hide();
@@ -365,7 +377,7 @@ public class SetupPagerFragment extends Fragment{
 
     @Override
     public void onPause() {
-        ((MainActivity)getActivity()).enableDrawer();
+        ((MainActivity) getActivity()).enableDrawer();
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
             actionBar.show();
