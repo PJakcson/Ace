@@ -42,7 +42,7 @@ public class PlayerActivity extends AppCompatActivity
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.replace(R.id.container, mChannelFragment.newInstance(channel), "channel");
-        transaction.addToBackStack("channel");
+//        transaction.addToBackStack("channel");
         transaction.commit();
     }
 
@@ -68,7 +68,7 @@ public class PlayerActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        ChannelFragment cf =  ((ChannelFragment)getFragmentManager().findFragmentByTag("channel"));
+        ChannelFragment cf = ((ChannelFragment) getFragmentManager().findFragmentByTag("channel"));
         if (cf != null && cf.getFABExpanded()) {
             cf.hideExpanded();
             return;
@@ -78,7 +78,7 @@ public class PlayerActivity extends AppCompatActivity
             return;
         }
 
-        if(!isTaskRoot())
+        if (!isTaskRoot())
             super.onBackPressed();
         else {
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
@@ -104,32 +104,32 @@ public class PlayerActivity extends AppCompatActivity
 
     @Override
     public void toggleFullScreen() {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).setFullScreen();
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).setFullScreen();
     }
 
     @Override
     public void toggleSettingsScreen() {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).openPlayerSettings();
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).openPlayerSettings();
     }
 
     @Override
     public void streamStateChanged(int i) {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).streamStateChanged(i);
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).streamStateChanged(i);
     }
 
     @Override
     public void doFollow() {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).toggleFollow();
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).toggleFollow();
     }
 
     @Override
     public void doShare() {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).showShareDialog();
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).showShareDialog();
     }
 
     @Override
     public void controlsShown() {
-        ((ChannelFragment)getFragmentManager().findFragmentByTag("channel")).updateViewersCount(0);
+        ((ChannelFragment) getFragmentManager().findFragmentByTag("channel")).updateViewersCount(0);
     }
 
     @Override
